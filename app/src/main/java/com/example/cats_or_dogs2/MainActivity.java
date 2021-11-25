@@ -12,25 +12,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CatAdapter.listClickListener{
+public class MainActivity extends AppCompatActivity {
     Button cats_btn;
     Button dogs_dtn;
     Button back_btn;
-    RecyclerView animal_table;
-    ArrayList catList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cats_btn = findViewById(R.id.cats);
-//       animal_table = findViewById(R.id.recycler_table);
-//        animal_table.setLayoutManager(new LinearLayoutManager(this));
-//        catList = new ArrayList(0);
-//
-//        CatAdapter adapter = new CatAdapter(this,catList);
-//        adapter.listener = this;
-//        animal_table.setAdapter(adapter);
 
         configureCatButton();
 
@@ -44,11 +36,5 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.listCl
                 startActivity(new Intent(MainActivity.this,TableViewActivity.class));
             }
         });
-    }
-
-    @Override
-    public void onCatSelected(CatManager selectedCats) {
-        Toast.makeText(this,"you picked a cat", Toast.LENGTH_LONG).show();
-
     }
 }
