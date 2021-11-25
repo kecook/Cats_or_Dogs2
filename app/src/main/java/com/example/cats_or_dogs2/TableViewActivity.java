@@ -1,12 +1,20 @@
 package com.example.cats_or_dogs2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
+import android.widget.Toast;
 
-public class TableViewActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class TableViewActivity extends AppCompatActivity implements CatAdapter.listClickListener {
+
+    RecyclerView animal_table;
+    ArrayList catList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +23,13 @@ public class TableViewActivity extends AppCompatActivity {
 
         configureBackButton();
 
+        animal_table = findViewById(R.id.recycler_table);
+        animal_table.setLayoutManager(new LinearLayoutManager(this));
+        catList = new CatManager().listOfCats;
 
-
+        CatAdapter adapter = new CatAdapter(this,catList);
+        adapter.listener = this;
+        animal_table.setAdapter(adapter);
     }
 
  private void configureBackButton(){
@@ -28,5 +41,10 @@ public class TableViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onCatSelected(CatModel selectedCats) {
+        Toast.makeText(this,"you picked a cat", Toast.LENGTH_LONG).show();
     }
 }
