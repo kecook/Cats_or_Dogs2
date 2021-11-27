@@ -14,10 +14,12 @@ import java.util.ArrayList;
 
 public class CatAdapter extends RecyclerView.Adapter<CatAdapter.viewHolder> {
     Context context;
-    ArrayList<CatManager> allCats;
+    ArrayList<CatModel> allCats;
+//    ArrayList<CatManager> allCats;
 
     public interface listClickListener{
-        void onCatSelected(CatManager selectedCats);
+//        void onCatSelected(CatManager selectedCats);
+        void onCatSelected(CatModel selectedCats);
     }
 
     public listClickListener listener;
@@ -34,7 +36,8 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.viewHolder> {
         public ImageView getCat_image() { return cat_image; }
         public TextView getName_text() { return name_text; }
     }
-    CatAdapter(Context c, ArrayList<CatManager> cats){
+//    CatAdapter(Context c, ArrayList<CatManager> cats){
+        CatAdapter(Context c, ArrayList<CatModel> cats){
         context = c;
         allCats = cats;
 
@@ -43,15 +46,19 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.viewHolder> {
     @NonNull
     @Override
     public CatAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_table_view,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_row_item,parent,false);
+//        View view = LayoutInflater.from(context).inflate(R.layout.activity_table_view,parent,false);
         return new viewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
+        holder.getName_text().setText(allCats.get(position).cat_name);
+        holder.getCat_image().setImageResource(allCats.get(position).cat_image_id);
+
 //        holder.getName_text().setText(allCats.get(position).name_text);
-//        holder.getCat_image().setImageResource(allCats.get(position).animal_image);
+//        holder.getCat_image().setImageResource(allCats.get(position).cat_image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { listener.onCatSelected(allCats.get(position)); }
